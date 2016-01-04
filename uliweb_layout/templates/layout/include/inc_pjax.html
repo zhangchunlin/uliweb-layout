@@ -1,0 +1,9 @@
+{{if settings.LAYOUT.pjax:}}
+<script>
+  require(['pjax'], function(){
+    $(document).pjax('click', 'a[data-pjax]', function(e){
+      $.pjax.click(event, {container:$('.content-wrapper')});
+    });
+  });
+</script>
+{{pass}}

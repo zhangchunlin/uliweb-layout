@@ -1,0 +1,37 @@
+{{extend "layout/basic.html"}}
+
+{{block resources}}
+    {{include "layout/include/inc_common_resource.html"}}
+{{end}}
+
+{{block body}}
+<body id="layout-body" class="{{block body_class}}skin-blue-light{{end}} sidebar-mini">
+
+{{block container}}
+<div class="wrapper">
+
+    {{block topbar}}
+        {{include "layout/include/inc_topbar.html"}}
+    {{end}}
+
+    {{block sidebar}}
+        {{include "layout/include/inc_sidebar.html"}}
+    {{end}}
+
+    {{block content_wrapper}}
+      <div class="content-wrapper">
+        {{include "layout/include/inc_content_wrapper.html"}}
+      </div>
+    {{end}}
+
+    {{block footer}}
+        {{include "layout/include/inc_footer.html"}}
+    {{end}}
+
+</div>
+{{end}}
+
+{{include "layout/include/inc_pjax.html"}}
+
+</body>
+{{end}}
