@@ -14,6 +14,10 @@
         {{include "layout/include/inc_topbar.html"}}
     {{end}}
 
+    {{block flash}}
+      {{include "layout/include/inc_flash.html"}}
+    {{end}}
+
     {{block sidebar}}
         {{include "layout/include/inc_sidebar.html"}}
     {{end}}
@@ -25,7 +29,9 @@
     {{end}}
 
     {{block footer}}
+      <footer class="main-footer">
         {{include "layout/include/inc_footer.html"}}
+      </footer>
     {{end}}
 
 </div>

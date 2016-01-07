@@ -1,2 +1,6 @@
 *.pyc
 *.bak
+build
+dist
+uliweb_layout.egg-info
+.idea
