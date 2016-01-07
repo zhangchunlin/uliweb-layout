@@ -2,5 +2,5 @@
 *.bak
 build
 dist
-uliweb_layout.egg-info
+*.egg-info
 .idea

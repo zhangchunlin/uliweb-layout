@@ -5,7 +5,7 @@
 {{end}}
 
 {{block body}}
-<body id="layout-body" class="{{block body_class}}skin-blue-light{{end}} sidebar-mini">
+<body id="layout-body" class="{{block body_class}}{{=settings.LAYOUT.get('skin', 'skin-blue')}}{{end}} sidebar-mini">
 
 {{block container}}
 <div class="wrapper">
