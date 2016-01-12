@@ -12,8 +12,8 @@ class QueryForm(form.Form):
         buf = """
 <style>
 table.query {margin-bottom:5px;}
-table.query label {margin-left:5px;margin-right:5px;margin-bottom:0px;}
-table.query label:first-child {margin-left:0px;}
+table.query label {margin-bottom:0px;}
+table.query td {padding-right:5px;}
 table.query .search{margin-left:10px;}
 </style>
 <script>
