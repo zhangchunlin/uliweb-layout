@@ -12,7 +12,7 @@ class QueryForm(form.Form):
         buf = """
 <style>
 table.query {margin-bottom:5px;}
-table.query label {margin-bottom:0px;}
+table.query label {margin-bottom:0px;display:inline;}
 table.query td {padding-right:5px;}
 table.query .search{margin-left:10px;}
 </style>
