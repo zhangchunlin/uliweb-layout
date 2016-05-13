@@ -1,43 +1,40 @@
 {{extend "layout/basic.html"}}
-
 {{block resources}}
-    {{include "layout/include/inc_common_resource.html"}}
+{{include "layout/include/inc_common_resource.html"}}
 {{end}}
-
-{{block body}}
-<body id="layout-body" class="{{block body_class}}{{=settings.LAYOUT.get('skin', 'skin-blue')}}{{end}} sidebar-mini">
-
+{{block body_class}}body-wide{{end}}
 {{block container}}
 <div class="wrapper">
 
     {{block topbar}}
-        {{include "layout/include/inc_topbar.html"}}
+    {{include "layout/include/inc_topbar.html"}}
     {{end}}
 
     {{block flash}}
-      {{include "layout/include/inc_flash.html"}}
+    {{include "layout/include/inc_flash.html"}}
     {{end}}
+    <div class="container-fluid">
+        <div class="row-fluid">
+            {{block sidebar}}
+            {{include "layout/include/inc_sidebar_new.html"}}
+            {{end}}
 
-    {{block sidebar}}
-        {{include "layout/include/inc_sidebar.html"}}
-    {{end}}
+            {{block content_wrapper}}
+            {{include "layout/include/inc_content_wrapper.html"}}
+            {{end}}
+        </div>
+    </div>
 
-    {{block content_wrapper}}
-      <div class="content-wrapper">
-        {{include "layout/include/inc_content_wrapper.html"}}
-      </div>
-    {{end}}
-
-    {{block footer}}
-      <footer class="main-footer">
-        {{include "layout/include/inc_footer.html"}}
-      </footer>
-    {{end}}
 
 </div>
+    {{block footer}}
+    <footer class="main-footer">
+        {{include "layout/include/inc_footer.html"}}
+    </footer>
+    {{end}}
 {{end}}
 
 {{include "layout/include/inc_pjax.html"}}
 
-</body>
-{{end}}
+
+

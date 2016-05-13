@@ -1,0 +1,46 @@
+.top-bar {
+    padding: 4px 0;
+    height: 39px;
+}
+
+.panel-content {
+    width: 100%;
+    float: left;
+    height: 100%;
+}
+
+#search1 label {
+    margin: 0;;
+}
+
+hr {
+    margin: 3px 0;
+}
+
+div .dataTables_length select {
+    width: 35px;
+}
+
+
+.main-content {
+    margin-top: 0 !important
+}
+
+.tabbable {
+    margin-bottom: 0;
+    padding: 0;
+    background-color: #fff;
+}
+
+.app-navbar-fixed .breadcrumb-topbar {
+    background-color: transparent;
+    right: 10px;
+    width: auto;
+    padding-left: 0;
+    border: 0;
+}
+
+.breadcrumb-topbar .breadcrumb {
+    background-color: transparent;
+    float: right;
+}

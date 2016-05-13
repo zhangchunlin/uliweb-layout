@@ -1,0 +1,37 @@
+.select-picker {
+    position: absolute;
+    border: solid 1px #ddd;
+    background-color: #fff;
+    padding: 3px;
+    z-index: 110;
+}
+
+.select-picker input {
+    width: 100%;
+}
+
+.select-picker div {
+    max-height: 250px;
+    overflow-y: auto;
+    margin-top: 5px;
+    max-width: 500px;
+}
+
+.blue-tag {
+    background-color: #007AFF;
+}
+
+.bootstrap-tagsinput {
+    padding:0;
+    margin: 0;
+    border-radius: 0;
+    width: 100%;
+}
+.bootstrap-tagsinput input {
+    border: 0;
+    width: 0 !important;
+    visibility: hidden;
+}
+.jstree-disabled .jstree-checkbox {
+    display: none;
+}

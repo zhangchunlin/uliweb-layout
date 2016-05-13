@@ -1,0 +1,37 @@
+{{extend "layout/basic_test.html"}}
+{{block resources}}
+{{include "layout/include/inc_common_resource_test.html"}}
+{{end}}
+{{block pagecss}}{{end}}
+{{block container}}
+<div class="wrapper {{block wrapper-export-class}}{{end}}">
+    <header class="main-header" style="max-height:none">
+        {{block topbar}}
+        {{include "layout/include/inc_topbar_test.html"}}
+        {{end}}
+    </header>
+    {{block main-container}}
+            {{block sidebar-container}}
+            <aside class="main-sidebar {{block main-sidebar-export-class}}{{end}}">
+                {{block sidebar}}
+                {{include "layout/include/inc_sidebar_test.html"}}
+                {{end}}
+            </aside>
+            {{end}}
+            {{block content-container}}
+            <div class="content-wrapper {{block content-wrapper-export-class}}{{end}}" style="min-height: 371px;">
+                {{block content}}
+                {{include "layout/include/inc_content_test.html"}}
+                {{end}}
+            </div>
+            {{end}}
+    {{end}}
+    {{block footer-container}}
+    <footer class="main-footer {{block main-footer-export-class}}{{end}}">
+        {{block footer}}
+        {{include "layout/include/inc_footer_test.html"}}
+        {{end}}
+    </footer>
+    {{end}}
+</div>
+{{end}}

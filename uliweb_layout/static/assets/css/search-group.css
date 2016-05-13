@@ -1,0 +1,90 @@
+.select-group-panel .text-list {
+	list-style:none;
+	padding:0px;
+	margin:0px;
+	overflow:hidden;
+}
+.select-college .text-list {
+	height:28px;
+}
+.select-expand .text-list {
+	height:auto;
+}
+.select-group {
+	position:relative;
+	border-top:solid 1px #ddd;
+	padding:3px 0px
+}
+.select-group:after {
+	clear:both;
+	content:"";
+	display:block;
+	height:0;
+}
+.select-group:after {
+	zoom:1;
+}
+.select-label {
+	color:#999;
+	font-weight:bold;
+	padding:5px;
+	white-space: nowrap;
+}
+.select-text {
+	padding:3px 5px;
+	text-align:center;
+}
+.select-text:hover {
+	color:#007aff;
+	cursor:pointer;
+}
+.select-choice {
+	padding-right:0px;
+}
+.muti-select {
+	cursor:pointer;
+}
+.select-choice:hover {
+	border-color:#007aff;
+}
+.select-remove {
+	padding:4px 8px;
+}
+.select-choice:hover .select-remove {
+	background-color:#007aff;
+	color:#fff;
+}
+.s-more {
+	border-top:1px solid #ddd;
+	height:40px;
+}
+.s-more-line:hover {
+	border-top:1px solid #007aff;
+}
+.s-more .sm-wrap {
+	font-size: 12px;
+	position: absolute;
+	top: -1px;
+	left: 45%;
+	line-height: 20px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #FFF #DDD #DDD;
+	background: #fff;
+	cursor: pointer;
+	width: 60px;
+	padding-left: 8px;
+	padding-right: 8px;
+}
+.s-more:hover .sm-wrap {
+	border-color:#FFF #007aff #007aff;
+	color:#007aff;
+}
+.s-more .sm-wrap i {
+	margin-left:6px;
+}
+.checkbox-list label {
+	white-space: nowrap;
+	padding-left: 0;
+	margin-right: 10px;
+}
