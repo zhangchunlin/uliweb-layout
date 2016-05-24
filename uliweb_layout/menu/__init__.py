@@ -232,16 +232,7 @@ def iter_menu(name, active='', validators=None):
         #process sub menus
         for j in menus.get('subs', []):
             flag = _validate(j, context, validators)
-                
-            if not flag:
-                continue
-            
-            if not begin:
-                yield 'begin', {'index':index}
-                begin = True
-                
-            yield 'open', {'index':index}
-            
+
             if index < len(x):
                 _name = x[index]
             else:
@@ -255,7 +246,17 @@ def iter_menu(name, active='', validators=None):
 
             d = j.copy()
             d.update({'active':_active, 'title':title, 'link':link,
-                      'expand':expand, 'index':index+1, 'name':j['name']})
+                      'expand':expand, 'index':index, 'name':j['name']})
+
+            if not flag:
+                continue
+            
+            if not begin:
+                yield 'begin', d
+                begin = True
+                
+            yield 'open', d
+            
             yield 'item', d
             
             for y in p(j, active, index+1):
@@ -264,7 +265,7 @@ def iter_menu(name, active='', validators=None):
             yield 'close', {'index':index+1}
         
         if begin:
-            yield 'end', {'index':index}
+            yield 'end', d
          
     for m in p(items, active):
         yield m
@@ -342,10 +343,13 @@ def default_navigation(name, active='', validators=None, id=None, _class=None,
             _lica = []
             if y['active']:
                 _lica.append('active')
-            if y['expand']:
-                _lica.append('open')
-            if y['subs']:
-                _lica.append("treeview")
+            # if y['expand']:
+            #     _lica.append('open')
+            # if y['subs']:
+            #     s.extend([indent, '<li class="dropdown">'])
+            #     s.extend([indent, '<a href="#" class="dropdown-toggle" data-toggle="dropdown">{} <span class="caret"></span></a>'.format(safe_unicode(y['title']))])
+            # else:
+
             _licstr = 'class="%s"' % (' '.join(_lica)) if _lica else ''
             _name = ' name="%s"' % y['name']
             s.extend([indent, '<li ', _licstr, _name, '><a href="', y['link'], '">'])
@@ -375,7 +379,9 @@ def default_navigation(name, active='', validators=None, id=None, _class=None,
                 _cls = (' %s' % _class) if _class else ''
                 s.append('<ul class="%s %s"%s>\n' % (menu_default_class, _cls, _id))
             else:
-                s.extend(['\n', indent, '<ul class="treeview-menu">\n'])
+                s.extend(['\n', indent, '<li class="dropdown">'])
+                s.extend(['\n', indent, '<a href="#" class="dropdown-toggle" data-toggle="dropdown">{}</a>'.format(safe_unicode(y['title']))])
+                s.extend(['\n', indent, '<ul class="dropdown-menu">\n'])
         else:
             s.extend([indent, '</ul>\n', indent])
 
