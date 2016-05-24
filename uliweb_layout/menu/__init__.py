@@ -366,8 +366,6 @@ def default_navigation(name, active='', validators=None, id=None, _class=None,
 
 
             s.extend([safe_unicode(y['title'])])
-            if y['subs']:
-                s.append('<i class="fa fa-angle-left pull-right"></i>')
             s.append('</a>')
         elif _t == 'open':
             pass
