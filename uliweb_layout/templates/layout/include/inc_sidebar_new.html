@@ -1,0 +1,8 @@
+{{block sidebar}}
+<div class="" id="submenu-panel">
+    <div class="sideNav {{=request.cookies.get("savedFoldingStatus") or ""}}">
+        <h2><a href="#"></a><em></em>主菜单</h2>
+        {{<<left_side_menu(menu_items,"demoui")}}
+    </div>
+</div>
+{{end}}

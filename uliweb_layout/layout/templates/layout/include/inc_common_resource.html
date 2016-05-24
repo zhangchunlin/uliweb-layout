@@ -1,11 +1,17 @@
-{{use "jQuery"}}
-{{use "jQueryui"}}
-{{use "json2"}}
+{{use "jquery"}}
+{{use "jqueryui"}}
 {{use "bootstrap3"}}
+{{use "json2"}}
+{{use "requirejs"}}
+
 {{use "fontawesome"}}
-{{use "ionicons"}}
-{{use "adminlte"}}
+{{use "themifyicons"}}
+{{use "ueditor"}}
+
 {{link "modules/uliweb-ui.css"}}
 {{link "modules/uliweb-ui.js"}}
-{{use "requirejs"}}
-<script type="text/javascript" src="{{=url_for_static('modules/config.js')}}" v="{{=settings.GLOBAL.STATIC_VER}}"></script>
+
+
+{{use "new_ui_app_style"}}
+{{use "new_ui_scripts"}}
+<script type="text/javascript" src="{{=url_for_static('config.js')}}" v="{{=settings.GLOBAL.STATIC_VER}}"></script>

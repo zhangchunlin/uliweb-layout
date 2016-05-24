@@ -12,17 +12,22 @@
     <!-- toplinks -->
     {{block resources}}{{end}}
     {{block pagecss}}{{end}}
+    {{block utils}}
+        {{include "layout/include/utils_.html"}}
+    {{end}}
 
     <title>{{block title}}Uliweb-layout{{end}}</title>
 
 </head>
 {{end}}
 
-{{block body}}
-<body>
+<body id="themebody" class="bootstrap-body theme-{{l3_get_utils.theme()}} {{block body_class}}{{end}}">
+
 {{block container}}
 {{end}}
 </body>
-{{end}}
 
 </html>
+{{block theme}}
+    {{themelink "theme.css"}}
+{{end}}

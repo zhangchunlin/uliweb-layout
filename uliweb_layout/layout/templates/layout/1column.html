@@ -9,29 +9,27 @@
 
 {{block container}}
 <div class="wrapper">
-
     {{block topbar}}
         {{include "layout/include/inc_container_topbar.html"}}
     {{end}}
 
     {{block flash}}
-      {{include "layout/include/inc_flash.html"}}
+        {{include "layout/include/inc_flash.html"}}
     {{end}}
-
     {{block content_wrapper}}
-      <div class="content-wrapper">
+    <div class="content-wrapper">
         <div class="container">
-          {{include "layout/include/inc_content_wrapper.html"}}
+            {{include "layout/include/inc_content_wrapper.html"}}
         </div>
-      </div>
+    </div>
     {{end}}
 
     {{block footer}}
-      <footer class="main-footer">
+    <footer class="main-footer">
         <div class="container">
-          {{include "layout/include/inc_footer.html"}}
+            {{include "layout/include/inc_footer.html"}}
         </div>
-      </footer>
+    </footer>
     {{end}}
 
 </div>

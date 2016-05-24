@@ -1,0 +1,263 @@
+{{use "jquery", ui=True}}
+{{use "jsmenu"}}
+{{
+if request.user and has_role(request.user, 'CCB_STAFF'):
+    menu_items = [
+        {   'name': 'systems',
+            'title':'资产',
+            'subs':[
+                    {'name': 'system', 'title':'原系统资产', 'link':'/systems'},
+                    {'name': 'logicsystem', 'title':'逻辑子系统', 'link':'/logicsystems'},
+                    {'name': 'component', 'title':'承接组件', 'link':'/component'},
+                    ]
+            },
+        {'name': 'assignments', 'title':'任务书', 'link':'/assignments?notcomplete=1'},
+        {
+            'name': 'target',
+            'title':'目标管理',
+            'subs':[
+                    {'name': 'requirements', 'title':'准开发需求', 'link':'/requirements'},
+                    {'name': 'assessment', 'title':'需求预评估单', 'link':'/assessment/list?status=1'},
+                    {'name': 'assessmentdetails', 'title':'需求预评估单明细', 'link':'/assessmentdetails/list?status=1'},
+                    {'name': 'assessmentsummary', 'title':'需求预评估单处理进展', 'link':'/assessmentsummary/list'},
+                    {'name': 'reviewsheet', 'title':'评审单', 'link':'/reviewsheet/list?status=1'},
+                    ]
+    }]
+    communicate_menu={
+        'name': 'communicate',
+        'title':'沟通管理',
+        'subs':[
+                {'name': 'coordination', 'title':'协同单', 'link':'/coordination/list?status=1'},
+                {'name': 'conference', 'title':'会议', 'link':'/conference'}
+                ]
+    }
+
+	import datetime
+	today = datetime.date.today()
+	if request.user :
+		#if not has_permission(request.user, 'report_aduit_PIO') and not has_permission(request.user, 'report_aduit_PMO'):
+		 #  	communicate_menu['subs'].append({'name': 'team_page', 'title':'周报说明项填写', 'link':'/charts/ccreport/weekreport_audit_charts/team_list?init=1&report_status=-1&report_status=2'})
+		#else:
+			#周二至周五
+			if not today.weekday() in settings.get_var("PARA/WEEK_REPORT_AUDIT_DATE"):
+				 if has_permission(request.user, 'report_aduit_PMO'):
+					communicate_menu['subs'].append({'name': 'team_page', 'title':'团队计划延迟说明审核', 'link':'/charts/ccreport/weekreport_audit_charts/team_list?report_status=1&report_status=4'})
+				 elif has_permission(request.user, 'report_aduit_PIO'):
+					communicate_menu['subs'].append({'name': 'team_page', 'title':'团队计划延迟说明审核', 'link':'/charts/ccreport/weekreport_audit_charts/team_list?report_status=-1&report_status=0&report_status=5'})
+				else:
+					communicate_menu['subs'].append({'name': 'team_page', 'title':'周报说明项填写', 'link':'/charts/ccreport/weekreport_audit_charts/team_list?init=1&report_status=-1&report_status=2'})
+				pass
+			#周六,日，一
+			else:
+				 if has_permission(request.user, 'report_aduit_PMO'):
+					communicate_menu['subs'].append({'name': 'report_aduit', 'title':'团队计划延迟说明审核', 'link':'/charts/ccreport/weekreport_audit_charts/report_aduit_list?report_status=1&report_status=4'})
+				 elif has_permission(request.user, 'report_aduit_PIO'):
+					communicate_menu['subs'].append({'name': 'report_aduit', 'title':'团队计划延迟说明审核', 'link':'/charts/ccreport/weekreport_audit_charts/report_aduit_list?report_status=-1&report_status=0&report_status=5'})
+				else:
+					communicate_menu['subs'].append({'name': 'report_aduit', 'title':'团队计划延迟说明审核', 'link':'/charts/ccreport/weekreport_audit_charts/report_aduit_list?report_status=-1'})
+				pass
+			pass
+		#pass
+		#if  has_permission(request.user, 'report_aduit_PMO'):
+			communicate_menu['subs'].append({'name': 'pmo_project_list', 'title':'项目周报审核', 'link':'/report_delay/pmo/project_list'})
+		#pass
+	pass
+
+    menu_items.append(communicate_menu)
+	menu_items.extend([
+        {
+        'name': 'tasks',
+        'title':'工作任务',
+        'subs':[
+                {'name': 'develop', 'title':'开发任务', 'link':'/tasks/develop/list?only_mine=1&status=1&status=2&status=5'},
+                {'name': 'plan', 'title':'计划项查询', 'link':'/tasks/planlist'},
+                {'name': 'planrelation', 'title':'关联计划项查询', 'link':'/tasks/planrelation'},
+#                {'name': 'researches', 'title':'可研任务', 'link':'/tasks/researches/list?only_mine=1'},
+#                {'name': 'nondevelop', 'title':'非开发任务', 'link':'/tasks/nondevelop/list'},
+                {'name': 'query', 'title':'查询工作量', 'link':'/tasks/query/workload'},
+                ]
+        },
+
+        {
+        'name': 'taskinfo',
+        'title':'派工单管理',
+        'subs':[
+                {'name': 'taskinfo', 'title':'派工单查询', 'link':'/configmanagement/taskinfo/list'},
+                {'name': 'qc_controller', 'title':'缺陷控制台', 'link':'/configmanagement/qc_controller/taskinfo/list'},
+                ]
+        },
+
+        {
+        'name': 'devresource', 'title':'开发资源池', 'link':'/config/users?deleted=0'
+        },
+    ])
+
+    if settings.get_var("MENU/TestPlanMenu") and settings.get_var("MENU/TestPlanMenuEnable"):
+        tp_menu = settings.get_var("MENU/TestPlanMenu")
+        if isinstance(tp_menu, str):
+            m, name = tp_menu.rsplit('.', 1)
+            mod = __import__(m, fromlist=['*'])
+            menuInst = getattr(mod, name)()
+            menu_items.append(menuInst.get_menu(request.user))
+        else:
+            menu_items.append(tp_menu)
+        pass
+    pass
+
+    if settings.get_var("DemoUIMenu/DemoUIMenu") and settings.get_var("DemoUIMenu/DemoUIEnable"):
+        demoui_menu=settings.get_var("DemoUIMenu/DemoUIMenu")
+        if isinstance(demoui_menu,str):
+            m,name = demoui_menu.rsplit('.',1)
+            mod = __import__(m,fromlist=['*'])
+            menuInst = getattr(mod,name)()
+            menu_items.append(menuInst.get_menu(request.user))
+        else:
+            menu_items.append(demoui_menu)
+        pass
+    pass
+
+    menu_talent_pool = {'name': 'talentpool', 'title':'人才库管理',
+        'subs':[
+                {'name':'basicinfo', 'title':'基本信息', 'link':'/talentpool'},
+                {'name':'assinfo', 'title':'考核信息', 'link':'/talentpool/annualass'},
+                {'name':'qualificationinfo', 'title':'资格认证信息',
+                'subs':[
+                    {'name':'qua_view', 'title':'资格认证信息查看', 'link':'/talentpool/qualification'},
+                    {'name':'qua_maintain', 'title':'资格认证信息审批', 'link':'/talentpool/qualification/maintain/apprlists'},
+                ]},
+                {'name':'paperinfo', 'title':'论文发表信息',
+                'subs':[
+                    {'name':'paper_view', 'title':'论文发表信息查看', 'link':'/talentpool/paper'},
+                    {'name':'paper_maintain', 'title':'论文发表信息审批', 'link':'/talentpool/paper/maintain/apprlists'},
+                ]},
+                {'name':'projectinfo', 'title':'项目经历信息',
+                 'subs':[
+                    {'name': 'compositeproject', 'title':'综合类项目信息',
+                    'subs':[
+                        {'name':'composite', 'title':'综合类信息查看', 'link':'/talentpool/project/composite'},
+                        {'name':'composite_maintain', 'title':'综合类信息审批', 'link':'/talentpool/project/maintain/apprlists/composite'}
+                    ]},
+                    {'name': 'developproject', 'title':'开发类项目信息',
+                    'subs':[
+                        {'name':'develop', 'title':'开发类信息查看', 'link':'/talentpool/project/develop'},
+                        {'name':'develop_maintain', 'title':'开发类信息审批', 'link':'/talentpool/project/maintain/apprlists/develop'}
+                    ]},
+                    {'name': 'testproject', 'title':'测试类项目信息',
+                    'subs':[
+                        {'name':'test', 'title':'测试类信息查看', 'link':'/talentpool/project/test'},
+                        {'name':'test_maintain', 'title':'测试类信息审批', 'link':'/talentpool/project/maintain/apprlists/test'}
+                    ]},
+                 ] },
+                {'name':'skillinfo', 'title':'技能信息', 'link':'/talentpool/skill'},
+                {'name':'matrixinfo', 'title':'能力矩阵信息', 'link':'/talentpool/abilitymatrix'}
+                ]
+        }
+
+    if settings.get_var("MENU/PerfArchMenu") and settings.get_var("MENU/PerfArchMenuEnable"):
+        menu_item_perfarch = settings.get_var("MENU/PerfArchMenu")
+        menu_items.append(menu_item_perfarch)
+    pass
+
+    if request.user and request.user.is_superuser or has_permission(request.user, 'TalentPoolView'):
+        menu_items.append(menu_talent_pool)
+    pass
+
+
+    menu_items.extend([
+        {'name': 'ticket', 'title':'问题和风险',
+            'subs':[
+                    {'name': 'question', 'title':'问题', 'link':'/ticket/questions/list?only_mine=1'},
+                    {'name': 'risk', 'title':'风险', 'link':'/ticket/risks/list?only_mine=1'},
+                    ]
+        },
+        #{'name': 'questionary', 'title':'生产问题处理', 'link':'/questionary?tasks=0'},
+        {'name': 'risk', 'title':'风险整改',
+            'subs':[
+                    {'name': 'point', 'title':'风险点', 'link':'/riskpoint/points'},
+                    {'name': 'solutions', 'title':'风险整改措施', 'link':'/riskpoint/solutions'},
+                    ]
+        },
+    ])
+
+elif request.user and has_role(request.user, 'COMPANY_STAFF'):
+    menu_items = [
+        {'name': 'develop', 'title':'开发任务', 'link':'/tasks/develop/list?only_mine=1'},
+        {
+        'name': 'taskinfo',
+        'title':'派工单管理',
+        'subs':[
+                {'name': 'taskinfo_tree', 'title':'我的派工单', 'link':'/configmanagement/taskinfo/tasktree'},
+                {'name': 'taskinfo', 'title':'派工单查询', 'link':'/configmanagement/taskinfo/list'},
+                {'name': 'qc_controller', 'title':'缺陷控制台', 'link':'/configmanagement/qc_controller/taskinfo/list'},
+                ]
+        },
+        ]
+    communicate_menu={
+        'name': 'communicate',
+        'title':'沟通管理',
+        'subs':[
+                {'name': 'coordination', 'title':'协同单', 'link':'/coordination/list?status=1'},
+                {'name': 'conference', 'title':'会议', 'link':'/conference'}
+                ]
+        }
+
+	import datetime
+	today = datetime.date.today()
+	if request.user :
+		#if not has_permission(request.user, 'report_aduit_PIO') and not has_permission(request.user, 'report_aduit_PMO'):
+		 #  	communicate_menu['subs'].append({'name': 'team_page', 'title':'周报说明项填写', 'link':'/charts/ccreport/weekreport_audit_charts/team_list?init=1&report_status=-1&report_status=2'})
+		#else:
+			#周二至周五
+			if not today.weekday() in settings.get_var("PARA/WEEK_REPORT_AUDIT_DATE"):
+				 if has_permission(request.user, 'report_aduit_PMO'):
+					communicate_menu['subs'].append({'name': 'team_page', 'title':'团队计划延迟说明审核', 'link':'/charts/ccreport/weekreport_audit_charts/team_list?report_status=1&report_status=4'})
+				 elif has_permission(request.user, 'report_aduit_PIO'):
+					communicate_menu['subs'].append({'name': 'team_page', 'title':'团队计划延迟说明审核', 'link':'/charts/ccreport/weekreport_audit_charts/team_list?report_status=-1&report_status=0&report_status=5'})
+				else:
+					communicate_menu['subs'].append({'name': 'team_page', 'title':'周报说明项填写', 'link':'/charts/ccreport/weekreport_audit_charts/team_list?init=1&report_status=-1&report_status=2'})
+				pass
+			#周六,日，一
+			else:
+				 if has_permission(request.user, 'report_aduit_PMO'):
+					communicate_menu['subs'].append({'name': 'report_aduit', 'title':'团队计划延迟说明审核', 'link':'/charts/ccreport/weekreport_audit_charts/report_aduit_list?report_status=1&report_status=4'})
+				 elif has_permission(request.user, 'report_aduit_PIO'):
+					communicate_menu['subs'].append({'name': 'report_aduit', 'title':'团队计划延迟说明审核', 'link':'/charts/ccreport/weekreport_audit_charts/report_aduit_list?report_status=-1&report_status=0&report_status=5'})
+				else:
+					communicate_menu['subs'].append({'name': 'report_aduit', 'title':'团队计划延迟说明审核', 'link':'/charts/ccreport/weekreport_audit_charts/report_aduit_list?report_status=-1'})
+				pass
+			pass
+		#pass
+		#if  has_permission(request.user, 'report_aduit_PMO'):
+			communicate_menu['subs'].append({'name': 'pmo_project_list', 'title':'项目周报审核', 'link':'/report_delay/pmo/project_list'})
+		#pass
+	pass
+    menu_items.append(communicate_menu)
+    menu_items.append({'name': 'rspservice', 'title': '测试环境资源服务平台','link':'/rspservice/rsploginlink', 'target':'_blank'})
+
+    if settings.get_var("MENU/PerfArchMenu") and settings.get_var("MENU/PerfArchMenuEnable"):
+        menu_item_perfarch = settings.get_var("MENU/PerfArchMenu")
+        menu_items.append(menu_item_perfarch)
+    pass
+else:
+    menu_items = []
+pass
+if request.user and has_role(request.user, 'superuser') or has_role(request.user, 'arrange_manager'):
+    menu_items.extend([
+        {'name': 'arrangement', 'title':'任务分配', 'link':'/arrangement?status=1&status=2'},
+    ])
+pass
+
+if has_permission(request.user, 'PublishFile'):
+    menu_items.extend([
+        {'name': 'publish', 'title':'文件发布', 'link':'/publish/list'},
+    ])
+pass
+
+menu_items.insert(1, settings.get_var('MENU/ReqMenu'))
+
+from uliweb_layout import get_layout3_utils
+l3_get_utils = get_layout3_utils()
+def left_side_menu(menu_items,*items):
+    out.xml(l3_get_utils.submenu(menu_items,*items))
+    pass
+}}
