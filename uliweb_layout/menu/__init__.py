@@ -352,21 +352,26 @@ def default_navigation(name, active='', validators=None, id=None, _class=None,
 
             _licstr = 'class="%s"' % (' '.join(_lica)) if _lica else ''
             _name = ' name="%s"' % y['name']
-            s.extend([indent, '<li ', _licstr, _name, '><a href="', y['link'], '">'])
-            if 'icon' in y and y['icon']:
-                if y['icon'].startswith("ion-"):
-                    s.extend(['<i class="ion %s"></i>' % y['icon']])
-                elif y['icon'].startswith("fa-"):
-                    s.extend(['<i class="fa %s"></i>' % y['icon']])
-                else:
-                    s.extend(['<i class="fa fa-%s"></i>' % y['icon']])
+            if y['subs']:
+                s.extend(['\n', indent, '<li class="dropdown">'])
+                s.extend(['\n', indent, '<a href="#" class="dropdown-toggle" data-toggle="dropdown">{}</a>'.format(safe_unicode(y['title']))])
+                s.extend(['\n', indent, '<ul class="dropdown-menu">\n'])
             else:
-                if index > 1:
-                    s.append('<i class="fa fa-angle-double-right"></i>')
+                s.extend([indent, '<li ', _licstr, _name, '><a href="', y['link'], '">'])
+                if 'icon' in y and y['icon']:
+                    if y['icon'].startswith("ion-"):
+                        s.extend(['<i class="ion %s"></i>' % y['icon']])
+                    elif y['icon'].startswith("fa-"):
+                        s.extend(['<i class="fa %s"></i>' % y['icon']])
+                    else:
+                        s.extend(['<i class="fa fa-%s"></i>' % y['icon']])
+                else:
+                    if index > 1:
+                        s.append('<i class="fa fa-angle-double-right"></i>')
+    
 
-
-            s.extend([safe_unicode(y['title'])])
-            s.append('</a>')
+                s.extend([safe_unicode(y['title'])])
+                s.append('</a>')
         elif _t == 'open':
             pass
         elif _t == 'close':
@@ -376,10 +381,10 @@ def default_navigation(name, active='', validators=None, id=None, _class=None,
                 _id = (' id="%s"' % id) if id else ''
                 _cls = (' %s' % _class) if _class else ''
                 s.append('<ul class="%s %s"%s>\n' % (menu_default_class, _cls, _id))
-            else:
-                s.extend(['\n', indent, '<li class="dropdown">'])
-                s.extend(['\n', indent, '<a href="#" class="dropdown-toggle" data-toggle="dropdown">{}</a>'.format(safe_unicode(y['title']))])
-                s.extend(['\n', indent, '<ul class="dropdown-menu">\n'])
+            # else:
+            #     s.extend(['\n', indent, '<li class="dropdown">'])
+            #     s.extend(['\n', indent, '<a href="#" class="dropdown-toggle" data-toggle="dropdown">{}</a>'.format(safe_unicode(y['title']))])
+            #     s.extend(['\n', indent, '<ul class="dropdown-menu">\n'])
         else:
             s.extend([indent, '</ul>\n', indent])
 
