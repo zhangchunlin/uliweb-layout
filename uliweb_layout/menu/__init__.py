@@ -368,7 +368,7 @@ def default_navigation(name, active='', validators=None, id=None, _class=None,
                 else:
                     if index > 1:
                         s.append('<i class="fa fa-angle-double-right"></i>')
-    
+
 
                 s.extend([safe_unicode(y['title'])])
                 s.append('</a>')
@@ -399,3 +399,18 @@ def print_menu_html(name, type='side'):
         _menu = settings.MENUS_CONFIG.menu_render or default_navigation
     print import_attr(_menu)(name=name)
 
+def mainmenu(*active):
+    from uliweb import settings
+
+    return navigation('MAINMENU', *active)
+
+def sidemenu(menuname, *active):
+    from uliweb import settings
+
+    return menu(menuname, *active)
+
+def startup_installed(sender):
+    from uliweb.core import template
+
+    template.default_namespace['mainmenu'] = mainmenu
+    template.default_namespace['sidemenu'] = sidemenu
