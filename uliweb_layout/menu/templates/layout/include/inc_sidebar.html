@@ -1,4 +1,6 @@
 {{block sidebar}}
+{{use "ui.pjax"}}
+
 <aside class="main-sidebar">
     <section class="sidebar">
         {{block sidemenu}}
@@ -6,9 +8,7 @@
         {{end}}
         {{if settings.MENUS_CONFIG.pjax:}}
         <script>
-          require(['pjax'], function(){
             $(document).pjax('.sidebar-menu a', '.content-wrapper');
-          });
         </script>
         {{pass}}
     </section>
