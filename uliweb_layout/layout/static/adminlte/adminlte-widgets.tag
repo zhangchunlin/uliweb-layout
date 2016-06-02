@@ -33,3 +33,16 @@
   </div>
 </box-header>
 
+/*
+ * callout
+ * <callout subject="subect">
+ *   <p>This is a test</p>
+ * </callout>
+ */
+
+<callout>
+  <div class="callout callout-{opts.type}">
+    <h4 if={ opts.subject }>{ opts.subject }</h4>
+    <yield/>
+</div>
+</callout>
