@@ -4,12 +4,12 @@
  */
 <box>
   <div class="{ box: true,
-    box-primary: opts.type=='primary',
-    box-success: opts.type=='success',
-    box-warning: opts.type=='warning',
-    box-info: opts.type=='info',
-    box-danger: opts.type=='danger',
-    box-default: opts.type=='default' || !opts.type }">
+    box-primary: opts.option=='primary',
+    box-success: opts.option=='success',
+    box-warning: opts.option=='warning',
+    box-info: opts.option=='info',
+    box-danger: opts.option=='danger',
+    box-default: opts.option=='default' || !opts.option }">
 
     <div class="{box-header:true, with-border:opts.border}"
         if={ opts.subject } data-is="box-header">
@@ -43,7 +43,7 @@
  */
 
 <callout>
-  <div class="callout callout-{opts.type}">
+  <div class="callout callout-{opts.option}">
     <h4 if={ opts.subject }>{ opts.subject }</h4>
     <yield/>
 </div>
