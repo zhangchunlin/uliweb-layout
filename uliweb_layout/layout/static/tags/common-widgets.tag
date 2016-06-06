@@ -1,6 +1,10 @@
 /*
  * box widget
- * <box type=[primary, default, import, success, warning]>
+ * <box option=[primary, default, import, success, warning] border="true" collapse="true" remove="true">>
+ *   <yield to="body">
+ *     <h3>Title</h3>
+ *   </yield>
+ * </box>
  */
 <box>
   <div class="{ box: true,
@@ -37,7 +41,7 @@
 
 /*
  * callout
- * <callout subject="subect">
+ * <callout subject="subject">
  *   <p>This is a test</p>
  * </callout>
  */
@@ -46,5 +50,5 @@
   <div class="callout callout-{opts.option}">
     <h4 if={ opts.subject }>{ opts.subject }</h4>
     <yield/>
-</div>
+  </div>
 </callout>
