@@ -395,6 +395,7 @@ class Bootstrap3_InputBtn(Bootstrap3_String):
 
 fields_mapping = {
     'str':'str',
+    'string':'str',
     'select':'select',
     'text':'text',
     'unicode':'str',
