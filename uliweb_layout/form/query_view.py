@@ -256,7 +256,7 @@ class QueryModelView(QueryView):
                     _cond = render(model, name, value, values)
                 else:
                     column = model.c.get(name)
-                    if not column:
+                    if column is None:
                         continue
                     if 'like' in v:
                         _cond = self._make_like(column, v['like'], value)
