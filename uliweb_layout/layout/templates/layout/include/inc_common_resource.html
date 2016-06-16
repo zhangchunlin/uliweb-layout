@@ -4,7 +4,11 @@
 {{use "ui_bootstrap3"}}
 {{use "ui_fontawesome"}}
 {{use "ui_ionicons"}}
-{{use "adminlte"}}
+
+{{block theme}}
+    {{use "adminlte"}}
+{{end}}
+
 {{link "modules/uliweb-ui.css"}}
 {{link "modules/uliweb-ui.js"}}
 {{block other_use}}{{end}}
