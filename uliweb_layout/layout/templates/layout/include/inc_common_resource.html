@@ -1,16 +1,15 @@
-{{use "ui_jquery"}}
-{{use "ui_jqueryui"}}
-{{use "ui_json2"}}
-{{use "ui_bootstrap3"}}
-{{use "ui_fontawesome"}}
-{{use "ui_ionicons"}}
-
-{{block theme}}
-    {{use "adminlte"}}
-{{end}}
+{{use "ui.jquery"}}
+{{use "ui.jqueryui"}}
+{{use "ui.json2"}}
+{{use "ui.bootstrap3"}}
+{{use "ui.fontawesome"}}
+{{use "ui.ionicons"}}
+{{use "adminlte"}}
+{{use "ui.head"}}
 
 {{link "modules/uliweb-ui.css"}}
 {{link "modules/uliweb-ui.js"}}
+{{use "ui.riot"}}
 {{block other_use}}{{end}}
-{{use "ui_requirejs"}}
-<script type="text/javascript" src="{{=url_for_static('modules/config.js')}}" v="{{=settings.GLOBAL.STATIC_VER}}"></script>
+{{#use "ui.requirejs"}}
+<!--<script type="text/javascript" src="{{=url_for_static('modules/config.js')}}" v="{{=settings.GLOBAL.STATIC_VER}}"></script>-->
