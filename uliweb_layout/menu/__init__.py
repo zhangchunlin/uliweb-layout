@@ -238,7 +238,7 @@ def iter_menu(name, active='', validators=None):
             else:
                 _name = ''
 
-            _active = _name == j['id'].split(name+'/')[-1]
+            _active = _name == j['id'].split('/')[-1]
 
             link = j.get('link', '#')
             title = j.get('title', j['name'])

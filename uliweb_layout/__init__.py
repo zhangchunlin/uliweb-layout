@@ -18,6 +18,8 @@ class LayoutUtils(object):
         return self.left_side_menu(menus, True, 1, *actives)
 
     def left_side_menu(self, menu_items, is_folder, level, *actives):
+        from uliweb.utils.common import safe_str
+
         if len(actives) > 0:
             active = actives[0]
             items = actives[1:]
@@ -44,16 +46,16 @@ class LayoutUtils(object):
                 target = '_self'
                 out.write(
                     '<li class=\"%s\"><a href=\"%s\" target=\"%s\">%s<span>%s</span><i class=\"fa fa-angle-left pull-right\"></i></a>' % (
-                    li_class, link, target,sub_icon, x["title"]))
+                    li_class, link, target,sub_icon, safe_str(x["title"])))
             else:
                 link = x.get("link", "#")
                 target = x.get('target', '_self')
                 out.write(
                     '<li class=\"%s\"><a href=\"%s\" target=\"%s\">%s<span>%s</span></a>' % (
-                    li_class, link, target,sub_icon, x["title"]))
+                    li_class, link, target,sub_icon, safe_str(x["title"])))
 
             if x.get('subs', None):
-                out.write(self.left_side_menu_new(x['subs'], False, level + 1, *items))
+                out.write(self.left_side_menu(x['subs'], False, level + 1, *items))
             out.write("</li>")
         out.write("</ul>")
         return out.getvalue()

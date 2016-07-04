@@ -1,7 +1,7 @@
 import copy
 from uliweb.core.html import Buf, Tag, Div, to_attrs
 from uliweb.form.layout import Layout
-from uliweb.utils.common import safe_str
+from uliweb.utils.common import safe_str, safe_unicode
 
 class Bootstrap3_Build(object):
     input_type = 'text'
@@ -187,9 +187,9 @@ class Bootstrap3_Column(Bootstrap3_Build):
                 error = ''
                 error_class = ''
 
-            return ('<div class="table-field-row%s">' % error_class + self.label +
-                    '<div class="table-field-col">' + self.content +
-                    error + '</div></div>')
+            return ('<div class="table-field-row%s">' % error_class + safe_unicode(self.label) +
+                    '<div class="table-field-col">' + safe_unicode(self.content) +
+                    safe_unicode(error) + '</div></div>')
 
         col_cls = 'form-group'
         if self.error:
@@ -513,7 +513,7 @@ class Bootstrap3VLayout(Layout):
     def buttons_line(self):
         buttons = self.layout.get('buttons', self.form.get_buttons())
         button_offset = self.layout.get('button_offset', self.label_width)
-        buf = Div(_class='form-group')
+        buf = Div(_class='form-actions form-group')
         if button_offset:
             with buf:
                 with buf.div(_class="col-sm-offset-%d col-sm-%d" % (button_offset, 12-button_offset)):
