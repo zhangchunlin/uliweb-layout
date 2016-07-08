@@ -1,0 +1,5 @@
+.content-wrapper {position:relative;padding:15px;}
+.main-footer {background-color: #3c8dbc; color: #e0e0e0;margin-left:0}
+.main-sidebar, .left-side {padding-top:0;margin-left:-230px;}
+.content {background-color:white;}
+.content-header {padding:15px;margin-top:-15px;margin-left:-15px;}
