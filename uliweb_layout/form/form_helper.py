@@ -585,6 +585,9 @@ class Bootstrap3VLayout(Layout):
                     _line = line
                 else:
                     raise Exception("Layout row should be str, dict, tuple, or list, but %r found" % line)
+                if self.use_table and not table:
+                    buf << '<table class="%s">' % table_class
+                    table = True
                 buf << self.line(_line)
 
         if table:

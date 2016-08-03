@@ -160,6 +160,9 @@ def convert_property_to_json(name, property, default=None):
     d['name'] = name
     d['type'] = property_mapping.get(prop_name, 'str')
     d['label'] = property.verbose_name or name
+    if property.choices:
+        d['type'] = 'select'
+        d['choices'] = property.choices
     d.update(default)
     return d
 
