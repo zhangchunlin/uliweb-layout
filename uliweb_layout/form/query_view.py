@@ -267,7 +267,20 @@ class QueryModelView(QueryView):
                         _cond = self._make_op(column, v['op'], value)
                     else:
                         if isinstance(value, (tuple, list)):
-                            _cond = column.in_(value)
+                            if v.get('range'):
+                                _cond = None
+                                if (value[0]):
+                                    if 'op' in v:
+                                        _cond = self._make_op(column, v['op'][0], value[0])
+                                    else:
+                                        _cond = (column >= value[0]) & _cond
+                                if (value[1]):
+                                    if 'op' in v:
+                                        _cond = self._make_op(column, v['op'][1], value[1])
+                                    else:
+                                        _cond = (column <= value[1]) & _cond
+                            else:
+                                _cond = column.in_(value)
                         else:
                             _cond = column==value
                 if _cond is not None:
