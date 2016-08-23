@@ -279,7 +279,7 @@ class Bootstrap3_Select(Bootstrap3_Build):
         field = self.field
         attrs = self.attrs
 
-        choices = field.get_choices()[:]
+        choices = field.get_choices(self.form.data.get(field.name))[:]
         if (field.empty is not None) and (not field.multiple):
             group = False
             if choices:
@@ -320,7 +320,10 @@ class Bootstrap3_Radios(Bootstrap3_Select):
         attrs = self.attrs
 
         buf = Buf()
-        _value = [safe_str(x) for x in (self.form.data.get(field.name) or [])]
+        if self.field.multiple:
+            _value = [safe_str(x) for x in (self.form.data.get(field.name) or [])]
+        else:
+            _value = [safe_str(self.form.data.get(field.name))]
         for i, (v, title) in enumerate(field.get_choices()):
             _attrs = copy.deepcopy(attrs)
             if safe_str(v) in _value:

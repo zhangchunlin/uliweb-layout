@@ -183,6 +183,8 @@ class QueryModelView(QueryView):
                 if p:
                     s.append(convert_property_to_json(f['name'], p, f))
                 else:
+                    if 'type' not in f:
+                        raise ValueError("Column definition should has 'type' property, but not found in {!r}".format(f))
                     s.append(f)
             elif isinstance(f, (str, unicode)):
                 p = self.model.properties[f]
