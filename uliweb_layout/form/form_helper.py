@@ -298,7 +298,7 @@ class Bootstrap3_Select(Bootstrap3_Build):
 
     def convert_html(self, value):
         r = []
-        for v, x in self.field.get_choices():
+        for v, x in self.field.get_choices(value):
             if self.field.multiple:
                 if v in value:
                     r.append(x)
