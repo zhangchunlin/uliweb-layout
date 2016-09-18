@@ -124,8 +124,15 @@ class QueryView(object):
 
 
     def get_json(self):
+        fields = []
+        for f in self.fields:
+            d = {}
+            for k, v in f.items():
+                if not callable(v):
+                    d[k] = v
+            fields.append(d)
         return {
-            'fields':self.fields,
+            'fields':fields,
             'layout':self.get_layout(),
             'data':self.result or self.data,
             'rules':self.form.front_rules['rules'],
@@ -252,7 +259,7 @@ class QueryModelView(QueryView):
                 v = {'name':v}
             name = v['name']
             if name in values:
-                render = v.get('render')
+                render = v.get('condition')
                 value = values[name]
                 if not value:
                     continue
