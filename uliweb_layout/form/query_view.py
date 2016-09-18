@@ -260,6 +260,9 @@ class QueryModelView(QueryView):
                 if render:
                     _cond = render(model, name, value, values)
                 else:
+                    if name not in model.c:
+                        log.debug("Can't found {} in model {}".format(name, model.__name__))
+                        continue
                     column = model.c.get(name)
                     if column is None:
                         continue
