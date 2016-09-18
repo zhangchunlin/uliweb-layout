@@ -128,7 +128,7 @@ class QueryView(object):
         for f in self.fields:
             d = {}
             for k, v in f.items():
-                if not callable(v):
+                if k != 'condition':
                     d[k] = v
             fields.append(d)
         return {
