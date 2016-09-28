@@ -161,25 +161,27 @@ property_mapping = {
 
 }
 
-def convert_property_to_json(name, property, default=None):
-    default = default or {}
-    prop_name = property.__class__.__name__
-    d = {}
-    d['name'] = name
-    d['type'] = property_mapping.get(prop_name, 'str')
-    d['label'] = property.verbose_name or name
-    if property.choices:
-        d['type'] = 'select'
-        d['choices'] = property.choices
-    d.update(default)
-    return d
-
+# def convert_property_to_json(name, property, default=None):
+#     default = default or {}
+#     prop_name = property.__class__.__name__
+#     d = {}
+#     d['name'] = name
+#     d['type'] = property_mapping.get(prop_name, 'str')
+#     d['label'] = property.verbose_name or name
+#     if property.choices:
+#         d['type'] = 'select'
+#         d['choices'] = property.choices
+#     d.update(default)
+#     return d
+#
 class QueryModelView(QueryView):
     def __init__(self, model, **kwargs):
         self.model = functions.get_model(model)
         super(QueryModelView, self).__init__(**kwargs)
 
     def get_fields(self, fields):
+        from uliweb.utils.generic import make_form_field
+
         s = []
         for f in fields:
             if isinstance(f, (tuple, list)) and isinstance(f[1], BaseField):
@@ -189,14 +191,30 @@ class QueryModelView(QueryView):
             elif isinstance(f, dict):
                 p = self.model.properties.get(f['name'])
                 if p:
-                    s.append(convert_property_to_json(f['name'], p, f))
+                    field = make_form_field(f['name'], self.model)
+                    if 'data-url' in f:
+                        url = f.pop('data-url')
+                        field.html_attrs['data-url'] = url
+                    # for k, v in f.items():
+                    #     setattr(field, k, v)
+                    j = field.to_json()
+                    j.update(f)
+                    if 'choices' in j:
+                        j['type'] = 'select'
+
+                    s.append(j)
                 else:
                     if 'type' not in f:
                         raise ValueError("Column definition should has 'type' property, but not found in {!r}".format(f))
                     s.append(f)
             elif isinstance(f, (str, unicode)):
-                p = self.model.properties[f]
-                s.append(convert_property_to_json(f, p))
+                if f not in self.model.properties:
+                    raise ValueError("Column {} should be defined in Model {}".format(f, self.model.__name__))
+                field = make_form_field(f, self.model)
+                j = field.to_json()
+                j['name'] = f
+
+                s.append(j)
             else:
                 raise QueryViewError("Form field data format {!r} is not support, should"
                                     "be ('name', Field) or {}".format(f))
