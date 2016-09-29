@@ -192,15 +192,8 @@ class QueryModelView(QueryView):
                 p = self.model.properties.get(f['name'])
                 if p:
                     field = make_form_field(f['name'], self.model)
-                    if 'data-url' in f:
-                        url = f.pop('data-url')
-                        field.html_attrs['data-url'] = url
-                    # for k, v in f.items():
-                    #     setattr(field, k, v)
                     j = field.to_json()
                     j.update(f)
-                    if 'choices' in j:
-                        j['type'] = 'select'
 
                     s.append(j)
                 else:
