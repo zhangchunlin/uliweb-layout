@@ -6,7 +6,9 @@
 
 {{block body}}
 <body id="layout-body" class="{{block skin}}{{=settings.LAYOUT.get('skin', 'skin-blue-light')}}{{end}} sidebar-mini">
+    {{block header_new}}
 
+    {{end}}
 {{block container}}
     <div class="wrapper">
 
@@ -22,16 +24,16 @@
             {{include "layout/include/inc_2column_content_wrapper.html"}}
         {{end}}
 
-        {{block footer}}
-        <footer class="main-footer">
-            {{include "layout/include/inc_footer.html"}}
-        </footer>
-        {{end}}
+
 
     </div>
 
 {{end}}
-
+{{block footer}}
+        <footer class="main-footer">
+            {{include "layout/include/inc_footer.html"}}
+        </footer>
+{{end}}
 {{include "layout/include/inc_pjax.html"}}
 
 </body>

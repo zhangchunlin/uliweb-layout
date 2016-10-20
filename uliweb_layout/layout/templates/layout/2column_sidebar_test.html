@@ -1,8 +1,12 @@
 {{extend "layout/basic.html"}}
+
 {{block resources}}
 {{include "layout/include/inc_common_resource.html"}}
 {{end}}
+
 {{block pagecss}}{{end}}
+
+
 {{block container}}
 <div class="wrapper {{block wrapper-export-class}}{{end}}">
     <header class="main-header" style="max-height:none">
@@ -20,11 +24,34 @@
             </aside>
             {{end}}
             {{block content-container}}
-            <div class="content-wrapper {{block content-wrapper-export-class}}{{end}}" style="min-height: 371px;">
-                {{block content}}
-                {{include "layout/include/inc_content.html"}}
+                <!-- Content Header (Page header) -->
+                {{block content_header}}
+                <section class="content-header">
+                    {{block content_header_title}}
+                    <!--<h1>
+                        Page Title
+                        <small>Small Description</small>
+                    </h1>-->
+                    {{end}}
+
+                    {{block content_header_breadcrumb}}
+                    <!--
+                    <ol class="breadcrumb">
+                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li class="active">Blank page</li>
+                    </ol>
+                    -->
+                    {{end}}
+                </section>
                 {{end}}
-            </div>
+
+                <!-- Main content -->
+
+                <div class="content-wrapper {{block content-wrapper-export-class}}{{end}}" style="min-height: 916px;">
+                    {{block content}}
+                    {{include "layout/include/inc_content.html"}}
+                    {{end}}
+                </div>
             {{end}}
     {{end}}
     {{block footer-container}}
@@ -32,7 +59,6 @@
         {{block footer}}
 
         {{end}}
-
     </footer>
     {{end}}
 </div>
