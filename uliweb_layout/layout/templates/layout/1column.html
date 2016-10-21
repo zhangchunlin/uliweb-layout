@@ -8,9 +8,9 @@
     #layout-body .content-wrapper {border-left:none};
 </style>
 <body id="layout-body" class="{{block skin}}{{=settings.LAYOUT.get('skin', 'skin-blue-light')}}{{end}} {{block body_class}}{{end}} layout-top-nav">
+{{block header_new}}{{end}}
 {{block container}}
 <div class="wrapper">
-
     {{block topbar}}
         {{include "layout/include/inc_container_topbar.html"}}
     {{end}}
