@@ -191,7 +191,7 @@ class QueryModelView(QueryView):
             elif isinstance(f, dict):
                 p = self.model.properties.get(f['name'])
                 if p:
-                    field = make_form_field(f['name'], self.model)
+                    field = make_form_field(f, self.model)
                     j = field.to_json()
                     j.update(f)
 
