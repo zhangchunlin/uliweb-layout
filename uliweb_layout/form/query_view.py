@@ -210,7 +210,7 @@ class QueryModelView(QueryView):
                 s.append(j)
             else:
                 raise QueryViewError("Form field data format {!r} is not support, should"
-                                    "be ('name', Field) or {}".format(f))
+                                    "be ('name', Field) or {{}}".format(f))
         self.fields = s
         return self.fields
 
