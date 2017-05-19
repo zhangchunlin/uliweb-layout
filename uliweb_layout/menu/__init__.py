@@ -9,6 +9,7 @@ from uliweb.utils.sorteddict import SortedDict
 from uliweb.utils.common import import_attr
 
 __menus__ = SortedDict()
+__menu_items__ = {} #saving item to parent relation
 _menu_order = 9000
 
 class MenuException(Exception): pass
@@ -17,9 +18,10 @@ def load_menu(menus):
     """
     Load menu definitions
     """
-    global __menus__
+    global __menus__, __menu_items__
 
     __menus__.clear()
+    __menu_items__.clear()
     _m = []
     _menu_names = set() #each menu item should has unique name
     
@@ -67,6 +69,7 @@ def load_menu(menus):
                     pitem['subs'].append(mitem)
                     _id = pitem.get('id') + '/' + name
                 mitem['id'] = _id
+                __menu_items__[name] = _p
                 stack.append((name, mitem))
                 find = True
                 _m.pop(i)
@@ -274,10 +277,13 @@ def default_menu(name, active='', validators=None, id=None, _class=None,
                  menu_default_class='sidebar-menu'):
     """
     :param menu: menu item name
-    :param active: something like "x/y/z"
+    :param active: something like "z"
     :param check: validate callback, basic validate is defined in settings
     """
     from uliweb.utils.common import safe_unicode
+
+    if '/' not in active:
+        active = '/'.join(__menu_items__[active].split('/')[1:] + [active])
 
     s = []
     for _t, y in iter_menu(name, active, validators):
