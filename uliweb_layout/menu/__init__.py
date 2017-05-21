@@ -420,3 +420,41 @@ def startup_installed(sender):
 
     template.default_namespace['mainmenu'] = mainmenu
     template.default_namespace['sidemenu'] = sidemenu
+
+def breadcrumb(menu, active, suffix='', prefix=''):
+    """
+    Output breadcrumb html code
+    :param menu: menu name
+    :param active: active menu item name
+    :param suffix: string append to breadcrumb
+    :return: string(html code)
+    """
+    from uliweb.utils.common import safe_str
+
+    items = get_menu(menu).get('subs', [])
+    if '/' not in active:
+        active = '/'.join(__menu_items__[active].split('/')[1:] + [active])
+    path = active.split('/')
+
+    def _iter_item(menus):
+        for c in path:
+            for item in menus:
+                if item['name'] == c:
+                    menus = item.get('subs', [])
+                    yield item
+                    break
+
+    s = ['<ol class="breadcrumb">']
+    for i, p in enumerate(_iter_item(items)):
+        if prefix and i==0:
+            s.append('<li>{}</li>'.format(safe_str(prefix)))
+        if i == len(path) - 1:
+            if suffix:
+                s.append('<li><a href="{}">{}</a></li>'.format(p.get('link', '#'), p.get('title')))
+                s.append('<li>{}</li>'.format(safe_str(suffix)))
+            else:
+                s.append('<li>{}</li>'.format(safe_str(p['title'])))
+        else:
+            s.append('<li><a href="{}">{}</a></li>'.format(p.get('link', '#'), p.get('title')))
+    s.append('</ol>')
+    return '\n'.join(s)
