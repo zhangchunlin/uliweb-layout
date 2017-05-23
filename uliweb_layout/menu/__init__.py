@@ -282,7 +282,7 @@ def default_menu(name, active='', validators=None, id=None, _class=None,
     """
     from uliweb.utils.common import safe_unicode
 
-    if '/' not in active:
+    if active and '/' not in active:
         active = '/'.join(__menu_items__[active].split('/')[1:] + [active])
 
     s = []
@@ -449,11 +449,9 @@ def breadcrumb(menu, active, suffix='', prefix=''):
         if prefix and i==0:
             s.append('<li>{}</li>'.format(safe_str(prefix)))
         if i == len(path) - 1:
+            s.append('<li><a href="{}">{}</a></li>'.format(p.get('link', '#'), p.get('title')))
             if suffix:
-                s.append('<li><a href="{}">{}</a></li>'.format(p.get('link', '#'), p.get('title')))
                 s.append('<li>{}</li>'.format(safe_str(suffix)))
-            else:
-                s.append('<li>{}</li>'.format(safe_str(p['title'])))
         else:
             s.append('<li><a href="{}">{}</a></li>'.format(p.get('link', '#'), p.get('title')))
     s.append('</ol>')

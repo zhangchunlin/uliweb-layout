@@ -1,10 +1,10 @@
 /*#layout-body .content-wrapper {position:relative;border-left:none;padding-bottom: 1px;}
 .main-footer {background-color: #3c8dbc; color: #e0e0e0;margin-left:0}
 .main-sidebar, .left-side {padding-top:0;margin-left:-230px;}
-.content {background-color:white;}
 #layout-body {font-size: 14px; font-family: "微软雅黑";}
 .content {margin:15px;}
 */
+.content {background-color:white;}
 .content-header {padding-bottom: 15px;}
 #layout-body {font-size: 14px; font-family: "微软雅黑";}
 .main-footer {background-color: #3c8dbc; color: #e0e0e0;margin-left:0}
