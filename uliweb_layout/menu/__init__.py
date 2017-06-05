@@ -360,20 +360,21 @@ def default_navigation(name, active='', validators=None, id=None, _class=None,
             _name = ' name="%s"' % y['name']
             if y['subs']:
                 s.extend(['\n', indent, '<li class="dropdown">'])
-                s.extend(['\n', indent, '<a href="#" class="dropdown-toggle" data-toggle="dropdown">{}</a>'.format(safe_unicode(y['title']))])
+                s.extend(['\n', indent, u'<a href="#" class="dropdown-toggle" data-toggle="dropdown">{} <span class="caret"></span></a>'.format(safe_unicode(y['title']))])
                 s.extend(['\n', indent, '<ul class="dropdown-menu">\n'])
             else:
                 s.extend([indent, '<li ', _licstr, _name, '><a href="', y['link'], '">'])
-                if 'icon' in y and y['icon']:
-                    if y['icon'].startswith("ion-"):
-                        s.extend(['<i class="ion %s"></i>' % y['icon']])
-                    elif y['icon'].startswith("fa-"):
-                        s.extend(['<i class="fa %s"></i>' % y['icon']])
-                    else:
-                        s.extend(['<i class="fa fa-%s"></i>' % y['icon']])
-                else:
-                    if index > 1:
-                        s.append('<i class="fa fa-angle-double-right"></i>')
+                # remove icon
+                # if 'icon' in y and y['icon']:
+                #     if y['icon'].startswith("ion-"):
+                #         s.extend(['<i class="ion %s"></i>' % y['icon']])
+                #     elif y['icon'].startswith("fa-"):
+                #         s.extend(['<i class="fa %s"></i>' % y['icon']])
+                #     else:
+                #         s.extend(['<i class="fa fa-%s"></i>' % y['icon']])
+                # else:
+                if index > 1:
+                    s.append('<i class="fa fa-angle-double-right"></i>')
 
 
                 s.extend([safe_unicode(y['title'])])
