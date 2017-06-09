@@ -180,7 +180,7 @@ class QueryModelView(QueryView):
         super(QueryModelView, self).__init__(**kwargs)
 
     def get_fields(self, fields):
-        from uliweb.utils.generic import make_form_field, get_column_model
+        from uliweb.utils.generic import make_form_field, get_field_model
 
         s = []
         for f in fields:
@@ -189,7 +189,7 @@ class QueryModelView(QueryView):
                 d = f[1].to_json()
                 s.append(d)
             elif isinstance(f, dict):
-                col, model = get_column_model(f['name'], self.model)
+                col, model = get_field_model(f['name'], self.model)
                 if col:
                     field = make_form_field(f, model)
                     j = field.to_json()
@@ -201,7 +201,7 @@ class QueryModelView(QueryView):
                         raise ValueError("Column definition should has 'type' property, but not found in {!r}".format(f))
                     s.append(f)
             elif isinstance(f, (str, unicode)):
-                col, model = get_column_model(f, self.model)
+                col, model = get_field_model(f, self.model)
                 if not col:
                     raise ValueError("Column {} could not be found in {}".format(f, self.model.__name__))
                 field = make_form_field(f, model)
