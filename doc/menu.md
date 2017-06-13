@@ -27,13 +27,6 @@ sidemenu = 'SIDEMENU'
         {{block sidemenu}}
             {{include "layout/include/inc_sidemenu.html"}}
         {{end}}
-        {{if settings.MENUS_CONFIG.pjax:}}
-        <script>
-          require(['pjax'], function(){
-            $(document).pjax('.sidebar-menu a', '.content-wrapper');
-          });
-        </script>
-        {{pass}}
     </section>
 </aside>
 {{end}}
