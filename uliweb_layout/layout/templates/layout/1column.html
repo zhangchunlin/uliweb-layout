@@ -3,10 +3,8 @@
     {{include "layout/include/inc_common_resource.html"}}
 {{end}}
 {{block pagecss}}{{end}}
+
 {{block body}}
-<style>
-    #layout-body .content-wrapper {border-left:none};
-</style>
 <body id="layout-body" class="{{block skin}}{{=settings.LAYOUT.get('skin', 'skin-blue-light')}}{{end}} {{block body_class}}{{end}} layout-top-nav">
 {{block header_new}}{{end}}
 {{block container}}

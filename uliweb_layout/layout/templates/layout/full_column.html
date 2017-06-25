@@ -5,11 +5,7 @@
 {{end}}
 
 {{block body}}
-<style>
-    #layout-body .content-wrapper {border-left:none;}
-    #layout-body .container { width: 100%; }
-</style>
-<body id="layout-body" class="{{block skin}}{{=settings.LAYOUT.get('skin', 'skin-blue-light')}}{{end}} {{block body_class}}{{end}} layout-top-nav">
+<body id="layout-body" class="{{block skin}}{{=settings.LAYOUT.get('skin', 'skin-blue-light')}}{{end}} {{block body_class}}{{end}} full layout-top-nav">
 
 {{block container}}
 <div class="wrapper">
@@ -20,12 +16,13 @@
     {{block flash}}
         {{include "layout/include/inc_flash.html"}}
     {{end}}
+
     {{block content_wrapper}}
-    <div class="content-wrapper">
-        <div class="container">
-            {{include "layout/include/inc_1column_content_wrapper.html"}}
+        <div class="content-wrapper">
+            <div class="container">
+                {{include "layout/include/inc_1column_content_wrapper.html"}}
+            </div>
         </div>
-    </div>
     {{end}}
 
     {{block footer}}
