@@ -189,7 +189,8 @@ class Bootstrap3_Column(Bootstrap3_Build):
 
             return ('<div class="table-field-row%s">' % error_class + safe_unicode(self.label) +
                     '<div class="table-field-col">' + safe_unicode(self.content) +
-                    safe_unicode(error) + '</div></div>')
+                    safe_unicode(error) + safe_unicode(self.get_help_string()) + '</div>' +
+                    '</div>')
 
         col_cls = 'form-group'
         if self.error:
