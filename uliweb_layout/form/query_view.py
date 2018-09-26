@@ -4,7 +4,7 @@
 #   QueryView 只用来生成查询Form及校验,不与Model, Table相关联
 #   QueryTableView 根据Table来生成QueryView
 #   QueryModelView 根据Model来生成QueryView
-
+from __future__ import print_function, absolute_import, unicode_literals
 from uliweb import functions
 from uliweb.i18n import gettext_lazy as _
 from uliweb.form import *

@@ -1,7 +1,9 @@
+from __future__ import print_function, absolute_import, unicode_literals
 import copy
 from uliweb.core.html import Buf, Tag, Div, to_attrs
 from uliweb.form.layout import Layout
 from uliweb.utils.common import safe_str, safe_unicode
+from uliweb.utils._compat import string_types
 
 class Bootstrap3_Build(object):
     input_type = 'text'
@@ -13,7 +15,7 @@ class Bootstrap3_Build(object):
 
         attrs = attrs or {}
         self.form = form
-        if isinstance(field, (str, unicode)):
+        if isinstance(field, string_types):
             fieldname = field
             self.field = getattr(form.__class__, fieldname)
         else:
@@ -121,7 +123,7 @@ class Bootstrap3_Column(Bootstrap3_Build):
         self.kwargs = {}
         self.table_cell = table_cell
 
-        if isinstance(col, (str, unicode)):
+        if isinstance(col, string_types):
             if not col in self.form.fields:
                 self.content = col
                 self.name = ''
@@ -469,7 +471,7 @@ class Bootstrap3VLayout(Layout):
         columns_num = len(line)
         total_width = 0
         for f in line:
-            if isinstance(f, (str, unicode)):
+            if isinstance(f, string_types):
                 col = {'name':f}
             elif isinstance(f, dict):
                 col = f
@@ -557,7 +559,7 @@ class Bootstrap3VLayout(Layout):
         table = None
         table_class = self.layout.get('table_class', 'table table-hover table-layout')
         for line in self.layout['rows']:
-            if isinstance(line, (str, unicode)):
+            if isinstance(line, string_types):
                 #process fieldset title
                 if line.startswith('--') and line.endswith('--'):
                     fieldset = True

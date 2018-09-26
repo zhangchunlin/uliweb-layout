@@ -1,3 +1,4 @@
+from __future__ import print_function, absolute_import, unicode_literals
 __version__ = '1.0'
 __url__ = ''
 __author__ = 'limodou'
@@ -7,6 +8,7 @@ import os
 from copy import deepcopy
 from uliweb.utils.sorteddict import SortedDict
 from uliweb.utils.common import import_attr
+from uliweb.utils._compat import string_types, u
 
 __menus__ = SortedDict()
 __menu_items__ = {} #saving item to parent relation
@@ -110,7 +112,7 @@ def print_menu(root=None, title=False, verbose=False):
         items = get_menu(root)
     
     def p(menus, tab=0):
-        print ' '*tab + menus['name'],
+        print (' '*tab + menus['name'], end='')
         if title or verbose:
             txt = '[' + menus.get('title', menus['name']) + ']'
         else:
@@ -121,7 +123,7 @@ def print_menu(root=None, title=False, verbose=False):
                 if menus.get(x):
                     d[x] = menus.get(x)
             txt += ' {%s}' % (','.join(['%s="%s"' % (x, y) for x, y in d.items()]))
-        print txt
+        print (txt)
         for x in menus.get('subs', []):
             p(x, tab+4)
        
@@ -186,7 +188,7 @@ def _validate(menu, context, validators=None):
         flag = False
         for v in validators:
             if not v: continue
-            if isinstance(v, (str, unicode)):
+            if isinstance(v, string_types):
                 func = import_attr(v)
             else:
                 func = v
@@ -404,7 +406,7 @@ def print_menu_html(name, type='side'):
         _menu = settings.MENUS_CONFIG.menu_render or default_menu
     elif type == 'main':
         _menu = settings.MENUS_CONFIG.menu_render or default_navigation
-    print import_attr(_menu)(name=name)
+    print (import_attr(_menu)(name=name))
 
 def mainmenu(*active):
     from uliweb import settings
@@ -448,12 +450,12 @@ def breadcrumb(menu, active, suffix='', prefix=''):
     s = ['<ol class="breadcrumb">']
     for i, p in enumerate(_iter_item(items)):
         if prefix and i==0:
-            s.append('<li>{}</li>'.format(safe_str(prefix)))
+            s.append('<li>{}</li>'.format(u(prefix)))
         if i == len(path) - 1:
-            s.append('<li><a href="{}">{}</a></li>'.format(p.get('link', '#'), p.get('title')))
+            s.append('<li><a href="{}">{}</a></li>'.format(p.get('link', '#'), u(p.get('title'))))
             if suffix:
-                s.append('<li>{}</li>'.format(safe_str(suffix)))
+                s.append('<li>{}</li>'.format(u(suffix)))
         else:
-            s.append('<li><a href="{}">{}</a></li>'.format(p.get('link', '#'), p.get('title')))
+            s.append('<li><a href="{}">{}</a></li>'.format(p.get('link', '#'), u(p.get('title'))))
     s.append('</ol>')
     return '\n'.join(s)

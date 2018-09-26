@@ -3,7 +3,7 @@ __url__ = ''
 __author__ = 'limodou'
 __email__ = 'limodou@gmail.com'
 
-from cStringIO import StringIO
+from io import StringIO
 from uliweb.utils.common import safe_str
 
 
