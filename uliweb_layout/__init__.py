@@ -1,7 +1,8 @@
-__version__ = '1.0'
-__url__ = ''
+__version__ = '0.1.0'
+__url__ = 'https://github.com/uliwebext/uliweb-layout'
 __author__ = 'limodou'
 __email__ = 'limodou@gmail.com'
+__license__ = 'BSD'
 
 from io import StringIO
 from uliweb.utils.common import safe_str
